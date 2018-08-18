@@ -35,7 +35,7 @@ namespace ExampleApi.Domain.Repositories
         {
             Customer customer = _mapper.Map<Customer>(item);
 
-            _context.Add(customer);
+            _context.Customers.Add(customer);
 
             _context.SaveChanges();
 
