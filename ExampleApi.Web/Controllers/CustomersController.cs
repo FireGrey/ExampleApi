@@ -21,9 +21,15 @@ namespace ExampleApi.Web.Controllers
 
         // GET api/customers
         [HttpGet(Name = "GetCustomers")]
-        public ActionResult<IEnumerable<CustomerDto>> GetCustomers()
+        public ActionResult<IEnumerable<CustomerDto>> GetCustomers(string firstName = null, string lastName = null)
         {
             var customers = _repository.Query();
+
+            if (!String.IsNullOrEmpty(firstName))
+                customers = customers.Where(c => c.FirstName == firstName);
+
+            if (!String.IsNullOrEmpty(lastName))
+                customers = customers.Where(c => c.LastName == lastName);
 
             return Ok(customers.ToList());
         }
