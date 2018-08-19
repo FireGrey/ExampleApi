@@ -21,7 +21,7 @@ namespace ExampleApi.Web.Controllers
 
         // GET api/customers
         [HttpGet(Name = "GetCustomers")]
-        public ActionResult<IEnumerable<CustomerDto>> GetCustomers(string firstName = null, string lastName = null)
+        public ActionResult<IEnumerable<CustomerDto>> GetCustomers(string firstName = null, string lastName = null, string orderBy = null)
         {
             var customers = _repository.Query();
 
@@ -30,6 +30,21 @@ namespace ExampleApi.Web.Controllers
 
             if (!String.IsNullOrEmpty(lastName))
                 customers = customers.Where(c => c.LastName == lastName);
+
+            switch(orderBy) {
+                case(nameof(CustomerDto.FirstName)):
+                    customers = customers.OrderBy(x => x.FirstName);
+                    break;
+                case(nameof(CustomerDto.LastName)):
+                    customers = customers.OrderBy(x => x.LastName);
+                    break;
+                case(nameof(CustomerDto.DateOfBirth)):
+                    customers = customers.OrderBy(x => x.DateOfBirth);
+                    break;
+                default:
+                    customers = customers.OrderBy(x => x.Id);
+                    break;
+            }
 
             return Ok(customers.ToList());
         }
