@@ -62,6 +62,16 @@ namespace ExampleApi.Domain.Tests
             Assert.Null(result);
         }
 
+        [Fact]
+        public void Add_AutoGeneratesId_ItemToAddIncludesId()
+        {
+            var repository = new CustomerRepository(_context, _mapper);
+
+            var result = repository.Add(SimpleCustomerDto);
+
+            Assert.NotEqual(result.Id, SimpleCustomerDto.Id);
+        }
+
         private static List<Customer> Customers =>
             new List<Customer>
             {
