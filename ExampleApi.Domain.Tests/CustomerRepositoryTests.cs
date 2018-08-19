@@ -19,12 +19,13 @@ namespace ExampleApi.Domain.Tests
         public CustomerRepositoryTests()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ExampleContext>()
-                .UseInMemoryDatabase("CustomerRepositoryTests");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
 
             _context = new ExampleContext(optionsBuilder.Options);
 
             // Seed with data
             Customers.ForEach(x => _context.Customers.Add(x));
+            _context.SaveChanges();
 
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<CustomerProfile>());
 
@@ -84,9 +85,9 @@ namespace ExampleApi.Domain.Tests
             new CustomerDto
             {
                 Id = 1337,
-                FirstName = "Dadeasdf",
-                LastName = "Murphy",
-                DateOfBirth = new DateTime(1972, 11, 15)
+                FirstName = "Acid",
+                LastName = "Burn",
+                DateOfBirth = new DateTime(1975, 6, 4)
             };
     }
 }
