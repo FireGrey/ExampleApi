@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExampleApi.Domain.Model;
 using ExampleApi.Domain.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleApi.Web.Controllers
@@ -83,6 +84,7 @@ namespace ExampleApi.Web.Controllers
         }
 
         // DELETE api/customers/5
+        [Authorize]
         [HttpDelete("{id}", Name = "DeleteCustomer")]
         public ActionResult DeleteCustomer(long id)
         {
