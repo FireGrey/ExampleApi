@@ -80,7 +80,7 @@ namespace ExampleApi.Web
 
             app.UseAuthentication();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
